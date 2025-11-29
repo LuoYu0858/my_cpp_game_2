@@ -24,8 +24,7 @@ int main(int argc, char** argv) {
 
     try {
         ResourceManager::instance()->load();
-    }
-    catch (const LPCTSTR id) {
+    } catch (const LPCTSTR id) {
         TCHAR err_msg[512];
         _stprintf_s(err_msg, _T("无法加载: %s"), id);
         MessageBox(hwnd, err_msg, _T("资源加载失败"), MB_OK | MB_ICONERROR);
