@@ -31,7 +31,8 @@ void CollisionManager::process_collide() const {
         for (CollisionBox* collision_box_dst : collision_box_list) {
             if (not collision_box_dst->enabled or
                 collision_box_src == collision_box_dst or
-                collision_box_src->layer_dst != collision_box_dst->layer_src)
+                collision_box_src->layer_dst != collision_box_dst->layer_src
+            )
                 continue;
             bool is_collide_x =
                     max(

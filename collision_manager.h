@@ -26,7 +26,7 @@ private:
 private:
     static CollisionManager* manager;
 
-    std::vector<CollisionBox*> collision_box_list;
+    std::vector<CollisionBox*> collision_box_list;  // 碰撞箱管理池
 };
 
 #endif //HOLLOWSAMURAI_COLLISION_MANAGER_H

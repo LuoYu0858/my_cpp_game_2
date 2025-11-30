@@ -119,7 +119,7 @@ void ResourceManager::load() {
     }
 
     for (const auto& info : atlas_info_list) {
-        Atlas* atlas = new Atlas();
+        auto* atlas = new Atlas();
         atlas->load(info.path, info.num_frame);
         for (int i = 0; i < atlas->get_size(); ++i) {
             IMAGE* image = atlas->get_image(i);
