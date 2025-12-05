@@ -3,9 +3,6 @@
 //
 
 #include "character.h"
-
-#include <iso646.h>
-
 #include "collision_manager.h"
 
 Character::Character() {
@@ -55,7 +52,7 @@ void Character::on_update(float delta) {
     }
 
     if (position.x <= 0) position.x = 0;
-    if (position.x >= getwidth()) position.x = static_cast<float>(getwidth());
+    if (position.x >= static_cast<float>(getwidth())) position.x = static_cast<float>(getwidth());
 
     hurt_box->set_position(get_logic_center());
 

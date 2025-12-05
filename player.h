@@ -27,35 +27,35 @@ public:
         is_rolling = flag;
     }
 
-    bool get_rolling() const {
+    [[nodiscard]] bool get_rolling() const {
         return is_rolling;
     }
 
-    bool can_roll() const {
-        return is_roll_cd_comp and not is_rolling and is_roll_key_down and is_on_floor();
+    [[nodiscard]] bool can_roll() const {
+        return is_roll_cd_comp and not is_rolling and is_roll_key_down;
     }
 
     void set_attacking(bool flag) {
         is_attacking = flag;
     }
 
-    bool get_attacking() const {
+    [[nodiscard]] bool get_attacking() const {
         return is_attacking;
     }
 
-    bool can_attack() const {
+    [[nodiscard]] bool can_attack() const {
         return is_attack_cd_comp and not is_attacking and is_attack_key_down;
     }
 
-    bool can_jump() const {
+    [[nodiscard]] bool can_jump() const {
         return is_on_floor() and is_jump_key_down;
     }
 
-    int get_move_axis() const {
+    [[nodiscard]] int get_move_axis() const {
         return is_right_key_down - is_left_key_down;
     }
 
-    AttackDir get_attack_dir() const {
+    [[nodiscard]] AttackDir get_attack_dir() const {
         return attack_dir;
     }
 
@@ -63,9 +63,6 @@ public:
     void on_land();
     void on_roll();
     void on_attack();
-
-private:
-    void update_attack_dir(int x, int y);
 
 private:
     const float CD_ROLL = .75f;

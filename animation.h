@@ -38,8 +38,7 @@ public:
         });
     }
 
-    ~Animation() {
-    }
+    ~Animation() = default;
 
     void reset() {
         timer.restart();
@@ -73,7 +72,10 @@ public:
         int width_frame = width / num_h;
         for (int i = 0; i < num_h; ++i) {
             Rect rect_src;
-            rect_src.x = i * width_frame, rect_src.y = 0, rect_src.w = width_frame, rect_src.h = height;
+            rect_src.x = i * width_frame,
+            rect_src.y = 0,
+            rect_src.w = width_frame,
+            rect_src.h = height;
             frame_list.emplace_back(image, rect_src);
         }
     }
