@@ -24,9 +24,9 @@ else()
     message(FATAL_ERROR "This project requires MSVC compiler")
 endif()
 
-file(GLOB SOURCES "*.cpp")
+file(GLOB RESOURCES "*.cpp")
 
-add_executable(HollowSamurai ${SOURCES})
+add_executable(HollowSamurai ${RESOURCES})
 
 if(MSVC)
     target_compile_options(HollowSamurai PRIVATE "/wd4456" "/wd4457" "/wd4458" "/wd4459")

@@ -5,11 +5,12 @@
 #include "player.h"
 #include "resources_manager.h"
 #include "player_state_nodes.h"
+#include "bullet_time_manager.h"
 
 Player::Player() {
     is_facing_left = false;
     position = {250, 200};
-    logic_height = 120;
+    logic_height = 100;
 
     hit_box->set_size({150, 150});
     hurt_box->set_size({40, 80});
@@ -229,6 +230,10 @@ void Player::on_input(const ExMessage& msg) {
                     is_attack_key_down = true;
                     attack_dir = AttackDir::Right;
                     break;
+                case 0x50:  // 'P'
+                    play_audio(_T("bullet_time"), false);
+                    BulletTimeManager::instance()->set_status(BulletTimeManager::Status::Entering);
+                    break;
                 default:
                     break;
             }
@@ -258,15 +263,13 @@ void Player::on_input(const ExMessage& msg) {
                 case 0x4C:  // 'L'
                     is_attack_key_down = false;
                     break;
+                case 0x50:
+                    stop_audio(_T("bullet_time"));
+                    BulletTimeManager::instance()->set_status(BulletTimeManager::Status::Exiting);
+                    break;
                 default:
                     break;
             }
-        case WM_RBUTTONDOWN:
-            // TODO: 进入子弹时间
-            break;
-        case WM_RBUTTONUP:
-            // TODO: 退出子弹时间
-            break;
         default:
             break;
     }

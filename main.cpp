@@ -2,6 +2,7 @@
 #include "resources_manager.h"
 #include "collision_manager.h"
 #include "character_manager.h"
+#include "bullet_time_manager.h"
 
 #include <chrono>
 #include <thread>
@@ -33,7 +34,7 @@ int main(int argc, char** argv) {
         return -1;
     }
 
-    constexpr nanoseconds frame_duration(1'000'000'000 / 90);
+    constexpr nanoseconds frame_duration(1'000'000'000 / 60);
     steady_clock::time_point last_tick = steady_clock::now();
 
     ExMessage msg{};
@@ -47,7 +48,8 @@ int main(int argc, char** argv) {
         steady_clock::time_point frame_start = steady_clock::now();
         auto delta = duration<float>(frame_start - last_tick);
 
-        CharacterManager::instance()->on_update(delta.count());
+        float scaled_delta = BulletTimeManager::instance()->on_update(delta.count());
+        CharacterManager::instance()->on_update(scaled_delta);
         CollisionManager::instance()->process_collide();
 
         setbkcolor(RGB(0, 0, 0));
@@ -61,8 +63,9 @@ int main(int argc, char** argv) {
         FlushBatchDraw();
 
         last_tick = frame_start;
-        if (nanoseconds sleep_duration = frame_duration - (steady_clock::now() - frame_start); sleep_duration >
-            nanoseconds(0))
+        if (nanoseconds sleep_duration = frame_duration - (steady_clock::now() - frame_start);
+            sleep_duration > nanoseconds(0)
+        )
             std::this_thread::sleep_for(sleep_duration);
     }
 
