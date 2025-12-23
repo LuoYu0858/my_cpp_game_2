@@ -29,7 +29,7 @@ Barb::Barb() {
 
     timer_idle.set_wait_time(static_cast<float>(range_random(3, 10)));
     timer_idle.set_one_shot(true);
-    timer_idle.set_on_timeout([&]() {
+    timer_idle.set_on_timeout([&] {
         if (stage == Stage::Idle) {
             stage = Stage::Aim;
             base_position = current_position;

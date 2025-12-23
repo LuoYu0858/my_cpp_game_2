@@ -6,13 +6,15 @@
 #include "character_manager.h"
 #include "resources_manager.h"
 #include "collision_manager.h"
+#include "enemy_state_nodes.h"
 
 Enemy::Enemy() {
+    hp = 14;
     is_facing_left = true;
     position = {1050, 200};
     logic_height = 150;
 
-    hit_box->set_size({50, 80});
+    hit_box->set_size({50, 70});
     hurt_box->set_size({100, 180});
 
     hit_box->set_layer_src(CollisionLayer::None);
@@ -232,7 +234,20 @@ Enemy::Enemy() {
             ResourceManager::instance()->find_atlas("enemy_vfx_dash_on_floor_right"));
     }
     {
-        // TODO: 状态机初始化
+        state_machine.register_state("aim", new EnemyAimState());
+        state_machine.register_state("dash_in_air", new EnemyDashInAirState());
+        state_machine.register_state("dash_on_floor", new EnemyDashOnFloorState());
+        state_machine.register_state("dead", new EnemyDeadState());
+        state_machine.register_state("fall", new EnemyFallState());
+        state_machine.register_state("idle", new EnemyIdleState());
+        state_machine.register_state("jump", new EnemyJumpState());
+        state_machine.register_state("run", new EnemyRunState());
+        state_machine.register_state("squat", new EnemySquatState());
+        state_machine.register_state("throw_barb", new EnemyThrowBarbState());
+        state_machine.register_state("throw_silk", new EnemyThrowSilkState());
+        state_machine.register_state("throw_sword", new EnemyThrowSwordState());
+
+        state_machine.set_entry("idle");
     }
 }
 
@@ -320,7 +335,7 @@ void Enemy::throw_barbs() {
 }
 
 void Enemy::throw_sword() {
-    Sword* new_sword = new Sword(get_logic_center(), is_facing_left);
+    auto new_sword = new Sword(get_logic_center(), is_facing_left);
     sword_list.push_back(new_sword);
 }
 

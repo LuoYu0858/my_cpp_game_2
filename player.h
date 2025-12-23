@@ -68,7 +68,7 @@ private:
     const float CD_ROLL = .75f;
     const float CD_ATTACK = .5f;
     const float SPEED_RUN = 300.f;
-    const float SPEED_JUMP = 780.f;
+    const float SPEED_JUMP = 880.f;
     const float SPEED_ROLL = 800.f;
 
 private:

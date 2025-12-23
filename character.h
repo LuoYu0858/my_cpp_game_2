@@ -61,7 +61,6 @@ public:
         return position.y >= FLOOR_Y;
     }
 
-    // ReSharper disable once CppDFAConstantFunctionResult
     float get_floor_y() const {
         return FLOOR_Y;
     }

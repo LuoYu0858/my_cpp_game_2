@@ -43,7 +43,10 @@ public:
     }
 
     Vector2 normalize() const {
-        return length() ? Vector2(0, 0) : Vector2(x / length(), y / length());
+        float len = length();
+
+        if (len == 0) return Vector2(0, 0);
+        return Vector2(x / len, y / len);
     }
 
 public:
